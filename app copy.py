@@ -35,6 +35,7 @@ app.secret_key= 'huihui'
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_PORT'] = 3306
 app.config['MYSQL_DB'] = 'flask'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
@@ -154,19 +155,27 @@ def doctodict(filepath):
 
 
 class RegisterForm(Form):
-	name = StringField('Name', [validators.Length(min=3, max=50)])
-	username = StringField('Phone Number', [validators.Length(min=4,max=25)])
+	name = StringField('Name', [validators.Length(min=3, max=50), validators.DataRequired()])
+	username = StringField('Whatsapp Number', [validators.Length(min=10,max=25), validators.DataRequired()])
 	email = StringField('Email', [validators.Email()])
 	password = PasswordField('Password', [
-			validators.Regexp("^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$", message="Password should contain min 8 characters including 1 letter and 1 number."),
+			validators.Regexp("^(?=.*(\d)*)(?=.*[a-z]*)(?=.*[a-zA-Z]*).{6,}$", message="Password should contain min 6 characters."),
 			validators.DataRequired(),
 			validators.EqualTo('confirm', message="Password do not match")
-		])
-	confirm = PasswordField('Confirm Password')
-	fath = StringField('Father\'s Name')
-	school = StringField('School')
-	stream = SelectField('Stream', choices=[(
-		'Science', 'Science'), ('Commerce', 'Commerce')])
+		], id='pass')
+	confirm = PasswordField('Confirm Password', [validators.DataRequired()])
+	fath = StringField('Parents or Guardian Name', [validators.DataRequired()])
+	fathcontact = StringField('Parents or Guardian conatct number', [validators.Length(min=10,max=25), validators.DataRequired()])
+	address = StringField('Address', [validators.DataRequired()])
+	taluk = StringField('Taluk', [validators.DataRequired()])
+	district = StringField('District', [validators.DataRequired()])
+	income = StringField('Annual Income', [validators.DataRequired()])
+	school = StringField('PU College name', [validators.DataRequired()])
+	percent = StringField('Percentage Marks in SSLC', [validators.DataRequired()])
+	stream = SelectField('Category', choices=[
+		('Select Category', 'Category'), ('GM', 'GM'), ('3A', '3A'), ('3B', '3B'), ('2A', '2A'), ('2B', '2B'), ('CAT-1', 'CAT-1'), ('SC', 'SC'), ('ST', 'ST'), ('Other', 'Other')])
+	
+	# 'GM', '3A', '3B', '2A', '2B', 'CAT-1', 'SC', 'ST', 'Other'
 	
 
 
@@ -178,8 +187,8 @@ class UploadForm(FlaskForm):
 	start_time = TimeField('Start Time', default=datetime.utcnow()+timedelta(hours=5.5))
 	end_date = DateField('End Date')
 	end_time = TimeField('End Time', default=datetime.utcnow()+timedelta(hours=5.5))
-	show_result = BooleanField('Show Result after completion')
-	neg_mark = BooleanField('Enable negative marking')
+	show_result = BooleanField('Show Result after completion', _name='show')
+	neg_mark = BooleanField('Enable negative marking', _name='neg')
 	duration = IntegerField('Duration(in min)')
 	password = StringField('Test Password', [validators.Length(min=3, max=6)])
 
@@ -238,15 +247,25 @@ def register():
 		# 	return render_template('register.html', form=form)
 		# send_confirmation_email(email)
 		username = form.username.data
-		password = form.password.data
 		fath = form.fath.data
+		fathcontact = form.fathcontact.data
+		address = form.address.data
+		taluk = form.taluk.data
+		district = form.district.data
+		income = form.income.data
 		school = form.school.data
+		per = form.percent.data
 		stream = form.stream.data
+		password = form.password.data
 		# password = str(form.password.data)
-		cur = mysql.connection.cursor()
-		cur.execute('INSERT INTO users(username,name,fathers_name ,school, stream ,email, password,confirmed) values(%s,%s,%s,%s,%s,%s,%s,0)', (username,name,fath, school, stream, email, password))
-		mysql.connection.commit()
-		cur.close()
+		try:
+			cur = mysql.connection.cursor()
+			cur.execute('INSERT INTO users(username,name,fathers_name, fathcontact, address, taluk, district, income, percent ,school, stream ,email, password,confirmed) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,0)', (username,name,fath, fathcontact, address, taluk, district, income, per, school, stream, email, password))
+			mysql.connection.commit()
+			cur.close()
+		except:
+			flash('User exists','info')
+			return redirect(url_for('login'))
 		flash('Thanks for registering!', 'success')
 		return redirect(url_for('login')) 
 		# change in login function to redirect to warning page
@@ -286,7 +305,7 @@ def login():
 				return render_template('login.html', error=error)
 			cur.close()
 		else:
-			error = 'Username not found'
+			error = 'User not found'
 			return render_template('login.html', error=error)
 	return render_template('login.html')
 
@@ -330,7 +349,7 @@ def create_test():
 				question = data['((QUESTION))']
 				correct_ans = data['((CORRECT_CHOICE)) (A/B/C/D)']
 				explanation = data['((EXPLANATION)) (OPTIONAL)']
-				
+
 				cur.execute('INSERT INTO questions(test_id,qid,q,a,b,c,d,ans,marks,explanation) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', 
 					(test_id,no,question,a,b,c,d,correct_ans,marks,explanation))
 				mysql.connection.commit()
@@ -342,7 +361,6 @@ def create_test():
 			end_date_time = str(end_date) + " " + str(end_time)
 			show_result = form.show_result.data
 			neg_mark = form.neg_mark.data
-
 			duration = int(form.duration.data)*60
 			password = form.password.data
 			subject = form.subject.data
@@ -599,16 +617,19 @@ def student_results(username, testid):
 		final = []
 		count = 1
 		for user in results:
+			res = cur.execute("select users.school as school, users.stream as stream from users where username = %s",[user['username']])
+			res = cur.fetchall()
+			print(res)
 			score = marks_calc(user['username'], testid)
 			user['srno'] = count
 			user['marks'] = score
-			final.append([count, user['name'], score, user['trust_score'], user['username']])
+			final.append([count, user['name'], score, user['username'], res[0]['school'], res[0]['stream']])
 			count+=1
 		if request.method =='GET':
 			results = sorted(results, key=operator.itemgetter('marks'), reverse=True)
 			return render_template('student_results.html', data=results)
 		else:
-			fields = ['Sr No', 'Name', 'Marks']
+			fields = ['Submission Order', 'Name', 'Marks', 'Phone No.', 'school', 'stream']
 			with open('static/' + testid + '.csv', 'w') as f:
 				writer = csv.writer(f)
 				writer.writerow(fields)
@@ -707,53 +728,46 @@ def control_singnup():
 def control_admin():
 	return render_template('admin.html')
 
-
+# import camera
 
 @app.route('/disp')
 def disp():
-	print(ddd)
-	flash('kitne log hein bhaii','danger')
+	# print(ddd)
+	# flash('kitne log hein bhaii','danger')
 	return redirect(url_for('video_feed'))
 
 @app.route('/video_feed', methods=['GET','POST'])
 def video_feed():
 	# cheating=0
 	global cheating
-	if request.method == "POST":
-		imgData = request.form['data[imgData]']
+	# if request.method == "POST":
+	# 	imgData = request.form['data[imgData]']
 		# proctorData = camera.get_frame(imgData)
 		# proctorData = get_analysis(imgData, "model/shape_predictor_68_face_landmarks.dat")
-		ddd = camera.get_frame(imgData)
-		try:
-			if (ddd['mob_status'] and ddd['mob_status']==1):
-				cheating += 1
-			elif (ddd['person_status'] and ddd['person_status']==2):
-				cheating += 1
-			elif (ddd['user_move1'] and ddd['user_move1']!=0):
-				cheating += 1
-			elif (ddd['user_move2'] and ddd['user_move2']!=0):
-				cheating += 1
-			elif (ddd['eye_movements'] and ddd['eye_movements']!=1):
-				cheating += 1
-		except:
-			pass
-		# if ddd['person_status'] == 2:
-		# 	cheating = True
-		# 	return redirect(url_for('index'))
-		print(ddd)
-		print(cheating)
-		flash('jhdsghdsgjsd','danger')
-		# if proctorData['person_status'] == 2:
-		# 	flash('Screen tuula!', 'danger')
+		# ddd = camera.get_frame(imgData)
+		# if (ddd['mob_status'] and ddd['mob_status']==1):
+		# 	cheating += 1
+		# elif (ddd['person_status'] and ddd['person_status']==2):
+		# 	cheating += 1
+		# elif (ddd['user_move1'] and ddd['user_move1']!=0):
+		# 	cheating += 1
+		# elif (ddd['user_move2'] and ddd['user_move2']!=0):
+		# 	cheating += 1
+		# elif (ddd['eye_movements'] and ddd['eye_movements']!=1):
+		# 	cheating += 1
 	return render_template('quiz.html')
-
 
 @app.route('/help_support')
 # @is_logged
 def help_support():
 	return render_template('contactus.html')
+	
+
+@app.route('/tempreg')
+# @is_logged
+def tempreg():
+	return render_template('tempreg.html')
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0")
     # app.run(debug=True)
-r
