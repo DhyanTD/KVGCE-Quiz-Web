@@ -26,15 +26,15 @@ from emailverifier import Client
 import cv2
 import numpy as np
 import math
-from proctoring import get_analysis, yolov3_model_v3_path
+# from proctoring import get_analysis, yolov3_model_v3_path
 
 app = Flask(__name__)
 app.secret_key= 'huihui'
 
 #Config MySQL
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_HOST'] = '128.199.16.52'
+app.config['MYSQL_USER'] = 'kvgce'
+app.config['MYSQL_PASSWORD'] = 'kvgce@23Exam'
 app.config['MYSQL_PORT'] = 3306
 app.config['MYSQL_DB'] = 'flask'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'

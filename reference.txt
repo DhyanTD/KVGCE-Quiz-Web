@@ -1,16 +1,15 @@
 install LEMP stack (Linux, Nginx, MySQL, PHP) on Ubuntu 20.04 : https://www.codewithharry.com/blogpost/lemp-stack-on-ubuntu-20/
 
+deploy flask app on Ubuntu VPS using Nginx and gunicorn : https://www.codewithharry.com/blogpost/flask-app-deploy-using-gunicorn-nginx/
 
 install PhpMyAdmin on Ubuntu running Nginx (LEMP stack) : https://www.codewithharry.com/blogpost/install-phpmyadmin-ubuntu-nginx/
 
-deploy flask app on Ubuntu VPS using Nginx and gunicorn : https://www.codewithharry.com/blogpost/flask-app-deploy-using-gunicorn-nginx/
-
 
 creating mysql user:
-mysql> CREATE USER 'ajpuc'@'localhost' IDENTIFIED WITH caching_sha2_password BY 'ajpuc123@Kvg';
-mysql> CREATE USER 'ajpuc'@'%' IDENTIFIED WITH caching_sha2_password BY 'ajpuc123@Kvg';
-mysql> GRANT ALL PRIVILEGES ON *.* TO 'ajpuc'@'localhost' WITH GRANT OPTION;
-mysql> GRANT ALL PRIVILEGES ON *.* TO 'ajpuc'@'%' WITH GRANT OPTION;
+mysql> CREATE USER 'kvgce'@'localhost' IDENTIFIED WITH caching_sha2_password BY 'kvgce@23Exam';
+mysql> CREATE USER 'kvgce'@'%' IDENTIFIED WITH caching_sha2_password BY 'kvgce@23Exam';
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'kvgce'@'localhost' WITH GRANT OPTION;
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'kvgce'@'%' WITH GRANT OPTION;
 
 
 To Allow Remote Access to MySQL:
