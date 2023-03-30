@@ -32,9 +32,9 @@ app = Flask(__name__)
 app.secret_key= 'huihui'
 
 #Config MySQL
-app.config['MYSQL_HOST'] = '139.59.33.56'
-app.config['MYSQL_USER'] = 'ajpuc'
-app.config['MYSQL_PASSWORD'] = 'ajpuc123@Kvg'
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_PORT'] = 3306
 app.config['MYSQL_DB'] = 'flask'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
@@ -156,7 +156,7 @@ def doctodict(filepath):
 
 class RegisterForm(Form):
 	name = StringField('Name', [validators.Length(min=3, max=50), validators.DataRequired()])
-	username = StringField('Phone Number', [validators.Length(min=4,max=25), validators.DataRequired()])
+	username = StringField('Whatsapp Number', [validators.Length(min=10,max=25), validators.DataRequired()])
 	email = StringField('Email', [validators.Email()])
 	password = PasswordField('Password', [
 			validators.Regexp("^(?=.*(\d)*)(?=.*[a-z]*)(?=.*[a-zA-Z]*).{6,}$", message="Password should contain min 6 characters."),
@@ -164,10 +164,18 @@ class RegisterForm(Form):
 			validators.EqualTo('confirm', message="Password do not match")
 		], id='pass')
 	confirm = PasswordField('Confirm Password', [validators.DataRequired()])
-	fath = StringField('Father\'s Name', [validators.DataRequired()])
-	school = StringField('School', [validators.DataRequired()])
-	stream = SelectField('Stream', choices=[(
-		'Science', 'Science'), ('Commerce', 'Commerce')])
+	fath = StringField('Parents or Guardian Name', [validators.DataRequired()])
+	fathcontact = StringField('Parents or Guardian conatct number', [validators.Length(min=10,max=25), validators.DataRequired()])
+	address = StringField('Address', [validators.DataRequired()])
+	taluk = StringField('Taluk', [validators.DataRequired()])
+	district = StringField('District', [validators.DataRequired()])
+	income = StringField('Annual Income', [validators.DataRequired()])
+	school = StringField('PU College name', [validators.DataRequired()])
+	percent = StringField('Percentage Marks in SSLC', [validators.DataRequired()])
+	stream = SelectField('Category', choices=[
+		('Select Category', 'Category'), ('GM', 'GM'), ('3A', '3A'), ('3B', '3B'), ('2A', '2A'), ('2B', '2B'), ('CAT-1', 'CAT-1'), ('SC', 'SC'), ('ST', 'ST'), ('Other', 'Other')])
+	
+	# 'GM', '3A', '3B', '2A', '2B', 'CAT-1', 'SC', 'ST', 'Other'
 	
 
 
@@ -239,14 +247,20 @@ def register():
 		# 	return render_template('register.html', form=form)
 		# send_confirmation_email(email)
 		username = form.username.data
-		password = form.password.data
 		fath = form.fath.data
+		fathcontact = form.fathcontact.data
+		address = form.address.data
+		taluk = form.taluk.data
+		district = form.district.data
+		income = form.income.data
 		school = form.school.data
+		per = form.percent.data
 		stream = form.stream.data
+		password = form.password.data
 		# password = str(form.password.data)
 		try:
 			cur = mysql.connection.cursor()
-			cur.execute('INSERT INTO users(username,name,fathers_name ,school, stream ,email, password,confirmed) values(%s,%s,%s,%s,%s,%s,%s,0)', (username,name,fath, school, stream, email, password))
+			cur.execute('INSERT INTO users(username,name,fathers_name, fathcontact, address, taluk, district, income, percent ,school, stream ,email, password,confirmed) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,0)', (username,name,fath, fathcontact, address, taluk, district, income, per, school, stream, email, password))
 			mysql.connection.commit()
 			cur.close()
 		except:
