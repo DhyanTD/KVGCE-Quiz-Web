@@ -34,3 +34,11 @@ $ sudo apt-get install default-libmysqlclient-dev
 
 kill process:
 $ sudo kill -9 `sudo lsof -t -i:5000`
+
+
+
+
+
+
+If Dlib error encountered 
+https://github.com/sachadee/Dlib

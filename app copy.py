@@ -707,7 +707,7 @@ def control_singnup():
 def control_admin():
 	return render_template('admin.html')
 
-import camera
+
 
 @app.route('/disp')
 def disp():
@@ -754,6 +754,6 @@ def help_support():
 	return render_template('contactus.html')
 
 if __name__ == '__main__':
-    app.run(debug=True, host="192.168.63.144")
+    app.run(debug=True, host="0.0.0.0")
     # app.run(debug=True)
 r
