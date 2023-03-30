@@ -118,9 +118,8 @@ def send_confirmation_email(user_email):
 	send_email([user_email], html)
 
 
-# test this function whether correct link is produced##############
 
-#init Mysql
+
 mysql = MySQL(app)
 
 @app.before_request
