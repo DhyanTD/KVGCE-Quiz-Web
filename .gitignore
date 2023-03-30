@@ -2,6 +2,8 @@
 __pycache__/
 *.py[cod]
 *$py.class
+!cfg/yolov3*.cfg
+yolov3-tiny.conv.15
 
 # C extensions
 *.so
