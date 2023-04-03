@@ -26,7 +26,7 @@ from emailverifier import Client
 import cv2
 import numpy as np
 import math
-from proctoring import get_analysis, yolov3_model_v3_path
+# from proctoring import get_analysis, yolov3_model_v3_path
 
 app = Flask(__name__)
 app.secret_key= 'huihui'
@@ -118,8 +118,9 @@ def send_confirmation_email(user_email):
 	send_email([user_email], html)
 
 
+# test this function whether correct link is produced##############
 
-
+#init Mysql
 mysql = MySQL(app)
 
 @app.before_request
