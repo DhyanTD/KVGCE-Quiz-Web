@@ -13,3 +13,7 @@ h1 {
 body {
 	font-family: 'Roboto Condensed', sans-serif;
 }
+
+::-webkit-scrollbar {
+    width: 10px;
+}

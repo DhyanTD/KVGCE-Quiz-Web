@@ -155,7 +155,7 @@ def doctodict(filepath):
 
 
 class RegisterForm(Form):
-	name = StringField('Name', [validators.Length(min=3, max=50), validators.DataRequired()])
+	name = StringField('Name of the student', [validators.Length(min=3, max=50), validators.DataRequired()])
 	username = StringField('Whatsapp Number', [validators.Length(min=10,max=25), validators.DataRequired()])
 	email = StringField('Email', [validators.Email()])
 	password = PasswordField('Password', [
