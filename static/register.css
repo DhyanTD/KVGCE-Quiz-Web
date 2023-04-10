@@ -111,3 +111,15 @@ p {
    padding-left: 0;
    padding-right: 0;
 }
+
+.footer {
+   position: absolute;
+   bottom: -40px;
+}
+
+@media(min-width:767px) {
+   .footer {
+      position: absolute;
+      bottom: -400px;
+   }
+}
