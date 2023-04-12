@@ -726,7 +726,15 @@ def control_singnup():
 @app.route('/control-admin')
 @is_logged
 def control_admin():
-	return render_template('admin.html')
+	cur = mysql.connection.cursor()
+	cur.execute('SELECT count(*) as count FROM users')
+	res = cur.fetchall()
+	mysql.connection.commit()
+	cur.close()
+	# cnt = res['count']
+	count = res[0]['count']-4
+	print(count)
+	return render_template('admin.html', count=count)
 
 # import camera
 
@@ -769,5 +777,5 @@ def tempreg():
 	return render_template('tempreg.html')
 
 if __name__ == '__main__':
-    app.run(debug=True, host="0.0.0.0")
+    app.run(debug=True)
     # app.run(debug=True)
