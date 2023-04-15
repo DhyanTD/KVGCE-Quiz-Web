@@ -8,8 +8,7 @@
 <style>
 
 .footer {
-        position: fixed;
-        bottom: 0;
+        display: none;
     }
 
     .container {
@@ -20,28 +19,35 @@
 <table class="table" style="width: 100%;">
     <thead class="thead-dark">
         <tr>
-            <th scope="col">Sr No</th>
+            <th scope="col">Sr. No.</th>
             <th scope="col">Name</th>
             <th scope="col">Phone Number</th>
-            <th scope="col">Marks</th>
-            <th scope="col">Trust Score</th>
+            <th scope="col">10th percentage</th>
+            <th scope="col">School</th>
+            <th scope="col">Taluk</th>
+            <th scope="col">District</th>
         </tr>
     </thead>
     <tbody>
+
         {% for ttlreg in data %}
+   
             <tr>
                 <td>{{loop.index}}</td>
-                <td>{{result['name']}}</td>
-                <td>{{result['username']}}</td>
-                <td>{{result['marks']}}</td>
-                <td>{{result['trust_score']}}&percnt;</td>
+                <td>{{ttlreg['name']}}</td>
+                <td>{{ttlreg['username']}}</td>
+                <td>{{ttlreg['percent']}}&percnt;</td>
+                <td>{{ttlreg['school']}}</td>
+                <td>{{ttlreg['taluk']}}</td>
+                <td>{{ttlreg['district']}}</td>
             </tr>
+
         {% endfor %}
         
     </tbody>
 </table>
-<center><a class="btn btn-primary" id="download">Download as CSV</a></center><br><br><br><br>
-<script>
+<!-- <center><a class="btn btn-primary" id="download">Download as CSV</a></center><br><br><br><br> -->
+<!-- <script>
     $('#download').on('click', function(){
         var url = window.location.href;
         var list = url.split('/');
@@ -57,5 +63,5 @@
     var url = window.location.href;
     var list = url.split('/');
     $("#download").attr('href','/static/' + list[list.length-1] + ".csv");
-</script>
+</script> -->
 {% endblock %}

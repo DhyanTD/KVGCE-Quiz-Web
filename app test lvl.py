@@ -155,7 +155,7 @@ def doctodict(filepath):
 
 
 class RegisterForm(Form):
-	name = StringField('Name', [validators.Length(min=3, max=50), validators.DataRequired()])
+	name = StringField('Name of the student', [validators.Length(min=3, max=50), validators.DataRequired()])
 	username = StringField('Whatsapp Number', [validators.Length(min=10,max=25), validators.DataRequired()])
 	email = StringField('Email', [validators.Email()])
 	password = PasswordField('Password', [
@@ -726,7 +726,15 @@ def control_singnup():
 @app.route('/control-admin')
 @is_logged
 def control_admin():
-	return render_template('admin.html')
+	cur = mysql.connection.cursor()
+	cur.execute('SELECT count(*) as count FROM users')
+	res = cur.fetchall()
+	mysql.connection.commit()
+	cur.close()
+	# cnt = res['count']
+	count = res[0]['count']-4
+	print(count)
+	return render_template('admin.html', count=count)
 
 # import camera
 
@@ -768,6 +776,17 @@ def help_support():
 def tempreg():
 	return render_template('tempreg.html')
 
+@app.route('/total-reg')
+# @is_logged
+def totalreg():
+	cur = mysql.connection.cursor()
+	cur.execute('select * from users where id not in (1,2,3,15);')
+	ttlreg = cur.fetchall()
+	mysql.connection.commit()
+	cur.close()
+	# results=totmarks(results)
+	return render_template('total_reg.html', data=ttlreg)
+
 if __name__ == '__main__':
-    app.run(debug=True, host="0.0.0.0")
+    app.run(debug=True)
     # app.run(debug=True)

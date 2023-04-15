@@ -776,6 +776,17 @@ def help_support():
 def tempreg():
 	return render_template('tempreg.html')
 
+@app.route('/total-reg')
+# @is_logged
+def totalreg():
+	cur = mysql.connection.cursor()
+	cur.execute('select * from users where id not in (1,2,3,15);')
+	ttlreg = cur.fetchall()
+	mysql.connection.commit()
+	cur.close()
+	# results=totmarks(results)
+	return render_template('total_reg.html', data=ttlreg)
+
 if __name__ == '__main__':
     app.run(debug=True)
     # app.run(debug=True)
