@@ -776,6 +776,11 @@ def help_support():
 def tempreg():
 	return render_template('tempreg.html')
 
+@app.route('/temptest')
+# @is_logged
+def temptest():
+	return render_template('temptest.html')
+
 @app.route('/total-reg')
 # @is_logged
 def totalreg():
