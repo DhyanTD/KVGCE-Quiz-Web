@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 20, 2023 at 03:43 PM
+-- Generation Time: May 25, 2023 at 05:14 AM
 -- Server version: 8.0.33-0ubuntu0.20.04.2
 -- PHP Version: 7.4.3-4ubuntu2.18
 
@@ -195,7 +195,7 @@ INSERT INTO `users` (`id`, `username`, `name`, `fathers_name`, `school`, `stream
 (93, '8310421143', 'Mithun.M', 'Gopalan', 'St.philomena pu.college', 'Other', 'mithun55ff@gmail.com', '9945641303m', '2023-04-19 10:51:03', 0, 1, '8618231717', 'Ishwaramangala', 'Puttur', 'Dhakshina Kannada ', '25000', '86.6'),
 (94, '8971388747', 'KEERTHAN KS ', 'SUBHASCHANDRA K A', 'GPUC SULLIA ', '2A', 'keerthanks842@gmail.com', 'm-&n@.®©', '2023-04-19 11:00:43', 0, 1, '8105736157', 'Sullia ', 'Sullia ', 'Dakshina kannada ', '30000', '90.33'),
 (97, '8281822119', 'Shraddha Rai M', 'Divakara.rai', 'Sullia', '3B', 'divakararai@085.com', '123456', '2023-04-19 11:09:54', 0, 1, '8281822119', 'Delampady ', 'Kasaragod ', 'Kasaragod ', '60000', '88.48'),
-(98, '7338509374', 'Ankith.K.R', 'Radhakrishna Gowda ', 'Government PU Collage kombettu puttur', '3A', 'ankithgowda04@gmail.com', 'ankithgowda07', '2023-04-19 11:12:01', 0, 1, '9449486617', 'Parpunja', 'Puttur', 'Dhakshina Kannada', '40000', '77.6'),
+(98, '7338509374', 'Ankith.K.R', 'Radhakrishna Gowda ', 'Government PU Collage kombettu puttur', '3A', 'ankithgowda04@gmail.com', '#ankithgowda07', '2023-04-19 11:12:01', 0, 1, '9449486617', 'Parpunja', 'Puttur', 'Dhakshina Kannada', '40000', '77.6'),
 (99, '9074892346', 'Lathesh .k ', 'Thukkoji Rao ', 'Gvhss mulleria ', 'Other', 'latheshrao2006@gmail.com', 'lathesh2006', '2023-04-19 11:25:29', 0, 1, '9495687922', 'Mulleria', 'Kasaragod', 'Kasaragod', '42000', '95%'),
 (100, '9663401851', 'Madhura Madev Naik', 'Madev Devappa naik', 'TNE pu college,bhatkal', '2A', 'naikmadhura002@gmail.com', 'madhu123', '2023-04-19 12:31:22', 0, 1, '9902723049', 'Sonarakeri, Murdeshwar ', 'Bhatkal', 'Uttara kannada', '11,000', '88'),
 (101, '7795193963', 'Shivakumara J M', 'Manjegowda J K', 'BGS indep pu college K R Pete', '3A', 'shivajmgowdrushivajm460460@gmail.com', 'shivajm779519', '2023-04-19 12:36:40', 0, 1, '9071830061', 'Jakkanahalli', 'K R pete', 'Mandya', '26000', '574 91.8percentage'),
@@ -512,7 +512,18 @@ INSERT INTO `users` (`id`, `username`, `name`, `fathers_name`, `school`, `stream
 (522, '7899158368', 'Shreeraksha c t ', 'Thirumalashwara c', 'Nmpu aranthodu ', '3A', 'shreerakshactraksha@gmail.com', 'Realmec2 1234', '2023-05-19 11:56:25', 0, 1, '9008967148', 'Sullia', 'Sullia', 'Dakshina Kannada ', '70000', '78%'),
 (523, '9663671653', 'Brinda DS', 'Sudhakar DM', 'Teresian pu college, Mysore', '3A', 'brindads13@gmail.com', 'BrindA@13', '2023-05-19 14:22:39', 0, 1, '9663568765', 'Bhagamandala', 'Madikeri', 'Kodagu', '₹1,00,000', '85'),
 (524, '8105300672', 'Muhammad Nazeer', 'Asmabi', 'St philomena pu collage puttur', '2B', 'itzmenaaz36@gmail.com', 'itzmenaaz36', '2023-05-20 02:49:40', 0, 1, '8105300672', 'Adibai house karikala post sullia taluq', 'Sullia', 'Dakshina kannada', '15000', '86'),
-(527, '7996818071', 'Yoshitha.M', 'Mahadevaswamy.S', 'Sree vasavi composite PU college ', '3B', 'yoshi181004@gmail.com', 'yoshi@1810', '2023-05-20 11:16:49', 0, 1, '9902446369', 'Kollegala', 'Kollegala', 'Chamarajanagara ', '684276', '91.2');
+(527, '7996818071', 'Yoshitha.M', 'Mahadevaswamy.S', 'Sree vasavi composite PU college ', '3B', 'yoshi181004@gmail.com', 'yoshi@1810', '2023-05-20 11:16:49', 0, 1, '9902446369', 'Kollegala', 'Kollegala', 'Chamarajanagara ', '684276', '91.2'),
+(528, '9739525645', 'Prathwish', 'Suresh devadiga', 'Rns Pu college ,murudeshwar', 'Other', 'prathwishprathwish26@gmail.com', 'hindu@123', '2023-05-21 11:03:54', 0, 1, '9902857995', 'Bastimakki,murudeshwar', 'Bhatkal', 'uttarkannada', '11000', '93%'),
+(529, '7676249006', 'Pratheeksha. k. ', '7676210989', 'Sspu subrahmanya', '3A', 'prathee1275@gmail.com', '12345katta@', '2023-05-22 04:05:00', 0, 1, '6363676772', 'Balpa', 'Kadaba', 'Dakshina kannada', '30000', '84.8%'),
+(530, '9019026833', 'Rakesh a. n', 'Nethra kumar ', 'Narendra pu college Puttur ', '3A', 'rakeshan2005@gmail.com', 'rakesh2005@', '2023-05-22 12:45:58', 0, 1, '6361834784', 'Kanakamajalu ', 'Sullia', 'Dhakshina kannada', '50,000', '77.44'),
+(531, '9108934985', 'Chendana.p', 'Greeshma.p', 'St Joseph\'s convent, madikeri ', '2A', 'chendanapchendanap@gmail.com', 'Chendana', '2023-05-22 12:58:42', 0, 1, '7760073965', 'Vidyanagar ', 'Madikeri ', 'Kodagu ', '43200', '80.44%'),
+(532, '9535825155', 'Manvith P R', 'Raveesha P', 'St.Phylomina college Puttur', '3A', 'amararaveesh15@gmail.com', '123456', '2023-05-22 15:07:32', 0, 1, '8660306473', 'Amara house hear rangamane oldgate sullia D.K', 'Sullia', 'Dakshina Kannada', '200000', '96'),
+(534, '8277046502', 'Shreya T C', 'Chandrashekhar Gowda', 'N M P U College Aranthodu', '3A', 'shreyashekhar147@gmail.com', '8277046501', '2023-05-23 06:51:20', 0, 1, '9480617042', 'Sullia', 'Sullia', 'Dakshina Kannada', '40000', '91.04'),
+(535, '7204813113', 'Chethan.M', 'Madappa', 'Sri cauvery composite pu college kuvempunagar mysore', 'SC', 'mahadevaswamyhc414@gmail.com', 'chethananya', '2023-05-23 10:12:12', 0, 1, '9741118103', 'Vajamangala ', 'Mysore', 'Mysore', '50000', '95.2'),
+(536, '9074300714', 'SUMESH NAMBIAR M', 'Balaksrishnn ', 'Gvhss iriyani ', 'GM', 'Sumeshnambiar112@gmail.com', 'sumesh123', '2023-05-23 14:05:23', 0, 1, '9495192030', 'Bandadka ', 'Kasaragod ', 'Kasaragod ', '50,000', '90% above'),
+(540, '7795780573', 'Jeevan HV', 'Vijaya HS', 'Morarji desai residential Science PU college Gargandoor ', '2A', 'g1jeevanhv8504@gmail.com', 'JE7@4411', '2023-05-24 08:47:18', 0, 1, '9481114411', 'Hebbale', 'Kushalnagar ', 'Kodagu ', '50000', '84'),
+(541, '7899559678', 'Ankith A L ', '9449748078', 'Morarji Desai Residential science PU college,Garaganduru ', '2A', 'ankitaal2005@gmail.com', '031984', '2023-05-24 09:00:11', 0, 1, '9008003573', 'Hebbae ', 'Somwarpet ', 'Kodagu ', '50000', '86'),
+(543, '9740561723', 'Pratheeksha G', 'Gangadhara A', 'Jawahar Navodaya vidyalaya, Mudipu,Dakshina kannada ', 'CAT-1', 'pratheekshag555@gmail.com', 'Prathi555@', '2023-05-24 14:18:17', 0, 1, '9449937033', 'Sullia ', 'Sullia ', 'Dakshina kannada', '1,50,000', '93.6%');
 
 --
 -- Indexes for dumped tables
@@ -533,7 +544,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=528;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=549;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
