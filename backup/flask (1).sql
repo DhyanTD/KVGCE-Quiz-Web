@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 01, 2023 at 06:20 AM
+-- Generation Time: Jun 01, 2023 at 06:36 AM
 -- Server version: 8.0.33-0ubuntu0.20.04.2
 -- PHP Version: 7.4.3-4ubuntu2.18
 
@@ -583,7 +583,9 @@ INSERT INTO `users` (`id`, `username`, `name`, `fathers_name`, `school`, `stream
 (643, '9845284830', 'Maryam siman', 'Kamaluddin', 'Rotary pu college , mithadka aletty', '2B', 'saudakamal2002@gmail.com', 'Requiredpw', '2023-06-01 06:02:57', 0, 1, '9448689518', 'Sullia', 'Sullia', 'Dakshina kannada ', '100000', '82%'),
 (644, '99728 88572 ', 'Khushi.k.m', 'Manjunatha.g ', 'Government pu college kanagalu ', '3A', 'khush.e.nish@gmail.com', 'nisha1432khushi', '2023-06-01 06:03:11', 0, 1, '9972272780', 'Kanagal ', 'Periyapattana ', 'Mysure ', '6000', '79.9'),
 (645, '9980547651', 'Chaitanya ', 'Venu gopal ', 'Vi', 'SC', 'chaitukanna41@gmail.com', 'Chaitu@19', '2023-06-01 06:05:06', 0, 1, '9980547651', 'Vijaypura  devanahalli talku', 'Devanahalli ', 'Bangalore ', '1200', '65'),
-(647, '9148865095', 'Shashank s', 'Sadashivappa ', 'Sarada Vilas collage Mysore ', '3B', 'shashankss017@gmail.com', 'shashank@45', '2023-06-01 06:15:59', 0, 1, '8151805503', 'Yamagumbha ', 'Hunsur', 'Mysore ', '13', '93.6');
+(647, '9148865095', 'Shashank s', 'Sadashivappa ', 'Sarada Vilas collage Mysore ', '3B', 'shashankss017@gmail.com', 'shashank@45', '2023-06-01 06:15:59', 0, 1, '8151805503', 'Yamagumbha ', 'Hunsur', 'Mysore ', '13', '93.6'),
+(648, '9113011183', 'Akshatha M', 'Manjappa ', 'Kvs pu college Shikaripura chanalli cross madur road ', '2A', 'akshathagmakshathagm94@gmail.com', 'akshu@123', '2023-06-01 06:23:11', 0, 1, '9113011173', 'Shikaripura ', 'Shikaripura ', 'Shimoga ', '15000', '70'),
+(649, '9113011173', 'Akshatha M', 'Manjappa ', 'Kvs pu college Shikaripura chanalli cross madur road ', '2A', 'akshathagmakshathagm94@gmail.com', 'akshu@123', '2023-06-01 06:24:39', 0, 1, '9113011173', 'Shikaripura ', 'Shikaripura ', 'Shimoga ', '15000', '70');
 
 --
 -- Indexes for dumped tables
@@ -604,7 +606,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=648;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=650;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

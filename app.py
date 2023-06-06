@@ -419,8 +419,8 @@ def test(testid):
 			except:
 				pass
 		else:
-			trust = 100-cheating			
-			cur.execute('UPDATE studenttestinfo set completed=1,time_left=sec_to_time(0),trust_score=%s where test_id = %s and username = %s', (trust, testid, session['username']))
+			# trust = 100-cheating			
+			cur.execute('UPDATE studenttestinfo set completed=1,time_left=sec_to_time(0) where test_id = %s and username = %s', ( testid, session['username']))
 			mysql.connection.commit()
 			cur.close()
 			flash("Test submitted successfully", 'info')
