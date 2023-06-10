@@ -25,6 +25,7 @@ import socket
 from emailverifier import Client
 import cv2
 import numpy as np
+from random import *
 import math
 # from proctoring import get_analysis, yolov3_model_v3_path
 
@@ -40,14 +41,21 @@ app.config['MYSQL_DB'] = 'flask'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 
-app.config.update(
-	DEBUG=True,
-	MAIL_SERVER='smtp.gmail.com',
-	MAIL_PORT=465,
-	MAIL_USE_SSL=True,
-	MAIL_USERNAME = '',
-	MAIL_PASSWORD = ''
-	)
+app.config['MAIL_SERVER']='smtpout.secureserver.net'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'support@kvgceexam.com'
+app.config['MAIL_PASSWORD'] = 'kvgce@23Exam'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+
+# app.config.update(
+# 	DEBUG=True,
+# 	MAIL_SERVER='smtpout.secureserver.net',
+# 	MAIL_PORT=465,
+# 	MAIL_USE_SSL=True,
+# 	MAIL_USERNAME = 'support@kvgceexam.com',
+# 	MAIL_PASSWORD = 'kvgce@23Exam'
+# 	)
 mail = Mail(app)
 
 def asynch(f):
@@ -791,6 +799,63 @@ def totalreg():
 	cur.close()
 	# results=totmarks(results)
 	return render_template('total_reg.html', data=ttlreg)
+
+@app.route('/forgot_password', methods=['GET','POST'])
+def fpassword():
+	if request.method == 'POST':
+		username = request.form['username']
+		# print(username)
+		otp = randint(000000,999999)
+		session['otp'] = otp
+		try:
+			cur = mysql.connection.cursor()
+			res = cur.execute("SELECT * from users where username = %s ",[username])
+			res = cur.fetchall()
+			mysql.connection.commit()
+			session['rec_email'] = res[0]['email']
+			# print(res[0]['email'])
+			msg = Message(
+        	        'KVGCE: OTP for Password recovery',
+        	        sender ='support@kvgceexam.com',
+        	        recipients = [res[0]['email']]
+        	       )
+			msg.body = 'Hello '+res[0]['name']+' use '+str(otp)+' as One Time Password to recover your account.'
+			mail.send(msg)
+		except:
+			flash('User Not registered', 'danger')
+			return redirect(url_for('login'))
+		# send_email(list(username), otp)
+		# msg = Message('OTP',sender = 'username@gmail.com', recipients = [email])  
+		# msg.body = str(otp)  
+		# mail.send(msg)
+		return redirect(url_for('otp'))
+	return render_template('forgot_password.html')
+
+@app.route('/otp', methods=['GET','POST'])
+def otp():
+    otp = session['otp']
+    if request.method == 'POST':
+        uotp = request.form['otp']
+        print(type(otp), type(uotp))
+        if(otp == int(uotp)):
+            session['otp'] = ''
+            return redirect(url_for('change'))
+        else:
+            flash('Invalid OTP', 'danger')
+    return render_template('otp.html')
+
+@app.route('/change', methods=['GET','POST'])
+def change():
+	otp = session['otp']
+	if request.method == 'POST':
+		passw = request.form['pass']
+		cur = mysql.connection.cursor()
+		em = session['rec_email']
+		res = cur.execute("update users set password=%s where email=%s",(passw, em))
+		res = cur.fetchall()
+		mysql.connection.commit()
+		return redirect(url_for('login'))
+	return render_template('change_password.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -810,9 +810,9 @@ def fpassword():
 		try:
 			cur = mysql.connection.cursor()
 			res = cur.execute("SELECT * from users where username = %s ",[username])
-			session['rec_email'] = res[0]['email']
 			res = cur.fetchall()
 			mysql.connection.commit()
+			session['rec_email'] = res[0]['email']
 			# print(res[0]['email'])
 			msg = Message(
         	        'KVGCE: OTP for Password recovery',
@@ -851,7 +851,7 @@ def change():
 		passw = request.form['pass']
 		cur = mysql.connection.cursor()
 		em = session['rec_email']
-		res = cur.execute("update user set password=%s where email=%s",(passw, em))
+		res = cur.execute("update users set password=%s where email=%s",(passw, em))
 		res = cur.fetchall()
 		mysql.connection.commit()
 		return redirect(url_for('login'))
