@@ -24,17 +24,17 @@
             <th scope="col">Name</th>
             <th scope="col">Phone Number</th>
             <th scope="col">Marks</th>
-            <th scope="col">Trust Score</th>
+            <!-- <th scope="col">Trust Score</th> -->
         </tr>
     </thead>
     <tbody>
         {% for ttlreg in data %}
             <tr>
                 <td>{{loop.index}}</td>
-                <td>{{result['name']}}</td>
-                <td>{{result['username']}}</td>
-                <td>{{result['marks']}}</td>
-                <td>{{result['trust_score']}}&percnt;</td>
+                <td>{{ttlreg['name']}}</td>
+                <td>{{ttlreg['username']}}</td>
+                <td>{{ttlreg['marks']}}</td>
+                
             </tr>
         {% endfor %}
         

@@ -15,6 +15,7 @@ from flask import render_template_string
 from itsdangerous import URLSafeTimedSerializer
 from validate_email import validate_email
 import random
+from random import *
 import json
 import csv
 import operator
@@ -36,19 +37,20 @@ app.config['MYSQL_HOST'] = '128.199.16.52'
 app.config['MYSQL_USER'] = 'kvgce'
 app.config['MYSQL_PASSWORD'] = 'kvgce@23Exam'
 app.config['MYSQL_PORT'] = 3306
-app.config['MYSQL_DB'] = 'flask'
+app.config['MYSQL_DB'] = 'test_mode'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 
 app.config.update(
 	DEBUG=True,
-	MAIL_SERVER='smtp.gmail.com',
+	MAIL_SERVER='smtpout.secureserver.net',
 	MAIL_PORT=465,
 	MAIL_USE_SSL=True,
-	MAIL_USERNAME = '',
-	MAIL_PASSWORD = ''
+	MAIL_USERNAME = 'support@kvgceexam.com',
+	MAIL_PASSWORD = 'kvgce@23Exam'
 	)
 mail = Mail(app)
+otp = randint(000000,999999)
 
 def asynch(f):
 	@wraps(f)
@@ -419,8 +421,8 @@ def test(testid):
 			except:
 				pass
 		else:
-			trust = 100-cheating			
-			cur.execute('UPDATE studenttestinfo set completed=1,time_left=sec_to_time(0),trust_score=%s where test_id = %s and username = %s', (trust, testid, session['username']))
+			# trust = 100-cheating			
+			cur.execute('UPDATE studenttestinfo set completed=1,time_left=sec_to_time(0) where test_id = %s and username = %s', ( testid, session['username']))
 			mysql.connection.commit()
 			cur.close()
 			flash("Test submitted successfully", 'info')
@@ -612,7 +614,7 @@ def tests_given(username):
 def student_results(username, testid):
 	if username == session['username']:
 		cur = mysql.connection.cursor()
-		results = cur.execute('select users.name as name,users.username as username, trust_score, test_id from studenttestinfo,users where test_id = %s and completed = 1 and studenttestinfo.username=users.username ', [testid])
+		results = cur.execute('select users.name as name,users.username as username, test_id from studenttestinfo,users where test_id = %s and completed = 1 and studenttestinfo.username=users.username ', [testid])
 		results = cur.fetchall()
 		final = []
 		count = 1
@@ -776,6 +778,11 @@ def help_support():
 def tempreg():
 	return render_template('tempreg.html')
 
+@app.route('/temptest')
+# @is_logged
+def temptest():
+	return render_template('temptest.html')
+
 @app.route('/total-reg')
 # @is_logged
 def totalreg():
@@ -786,6 +793,19 @@ def totalreg():
 	cur.close()
 	# results=totmarks(results)
 	return render_template('total_reg.html', data=ttlreg)
+
+@app.route('/forgot_password', methods=['GET','POST'])
+def fpassword():
+	if request.method == 'POST':
+		cur = mysql.connection.cursor()
+		username = request.form['username']
+		email = cur.execute('SELECT email from users where username =%s' , [username])
+		msg = Message('OTP',sender = 'username@gmail.com', recipients = [email])  
+		msg.body = str(otp)  
+		mail.send(msg)
+		return render_template('otp.html') 
+	return render_template('forgot_password.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
