@@ -15,6 +15,7 @@ from flask import render_template_string
 from itsdangerous import URLSafeTimedSerializer
 from validate_email import validate_email
 import random
+from random import *
 import json
 import csv
 import operator
@@ -25,9 +26,10 @@ import socket
 from emailverifier import Client
 import cv2
 import numpy as np
-from random import *
 import math
 # from proctoring import get_analysis, yolov3_model_v3_path
+# import pandas as pd
+# import os
 
 app = Flask(__name__)
 app.secret_key= 'huihui'
@@ -39,7 +41,6 @@ app.config['MYSQL_PASSWORD'] = 'kvgce@23Exam'
 app.config['MYSQL_PORT'] = 3306
 app.config['MYSQL_DB'] = 'flask'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
-
 
 app.config['MAIL_SERVER']='smtpout.secureserver.net'
 app.config['MAIL_PORT'] = 465
@@ -57,6 +58,7 @@ app.config['MAIL_USE_SSL'] = True
 # 	MAIL_PASSWORD = 'kvgce@23Exam'
 # 	)
 mail = Mail(app)
+
 
 def asynch(f):
 	@wraps(f)
@@ -96,8 +98,8 @@ def get_local_ip():
 
 def send_email(recipients,html_body):
 	try:
-		msg = Message('Confirm Your Email Address',
-		  sender="nickqwerty76@gmail.com",
+		msg = Message('One Time Password for Password Recovery',
+		  sender="support@kvgceexam.com",
 		  recipients=recipients)
 		msg.html = html_body
 		send_async_email(app, msg)
@@ -857,6 +859,51 @@ def change():
 		return redirect(url_for('login'))
 	return render_template('change_password.html')
 
+# @app.route('/upexcel', methods=['GET','POST'])
+# def upexcel():
+	
+#     df = pd.read_excel('backup\Dr. KVG.xls', engine='openpyxl')
+#     cursor = mysql.connection.cursor()
+
+#     try:
+     
+#         for _, row in df.iterrows():
+#             mobile = row['MOBILE NO']
+#             name = row['NAME']
+#             college = row['COLLEGE']
+#             result = row['RESULT']
+#             cursor.execute('INSERT INTO modified_res(mobile,name,college, result) values(%s,%s,%s,%s)', (mobile,name,college, result))
+	    	
+#         mysql.connection.commit()
+
+#         return 'Data inserted successfully!'
+   
+#     finally:
+#         cursor.close()
+#         mysql.connection.commit()
+	
+@app.route('/ncheck', methods=['GET','POST'])
+def ncheck():
+	if request.method == 'POST':
+		mobile = request.form['mobile']
+		cur = mysql.connection.cursor()
+		results = cur.execute('SELECT * from modified_res where mobile = %s' , [mobile])
+		results = cur.fetchall()
+		if results:
+			session['nmobile'] = results[0]['mobile']
+			session['nname'] = results[0]['name']
+			session['ncollege'] = results[0]['college']
+			session['nresults'] = results[0]['result']
+			return redirect(url_for('nresult'))
+		else:
+			flash('Mobile number not found','danger')
+			return render_template('ncheck.html')
+	return render_template('ncheck.html')
+
+@app.route('/nresult', methods=['GET','POST'])
+def nresult():
+	return render_template('nshowresults.html')
+	
 if __name__ == '__main__':
     app.run(debug=True)
     # app.run(debug=True)

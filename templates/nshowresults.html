@@ -1,0 +1,97 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="">
+{% endblock %}
+
+{% block body %}
+<style>
+
+.footer {
+        position: fixed;
+        bottom: 0;
+    }
+
+    .container {
+   padding-left: 0;
+   padding-right: 0;
+}
+</style>
+<hr><hr>
+<div style="text-align: center;"><h3>Hello, {{session.nname}}..,</h3> <h4 style="align-items: right;">{{session.ncollege}}</h4>
+
+<h1 >{{session.nresults}}</h1></div>
+<hr><hr>
+<!-- {{session.nmobile}} -->
+<!-- 
+{{session.ncollege}}
+{{session.nresults}} -->
+<br>
+<div style="padding: 3%;">
+<h3>Freeship & Dr. KVG Scholarship - 2023-24</h3>
+<style>
+    .footer{
+        display: none;
+    }
+</style>
+<style>
+    th, td {
+  padding-top: 1%;
+  padding-bottom: 2%;
+  padding-left: 1%;
+  padding-right: 2%;
+}
+</style>
+<p style="text-align: justify;">In the footsteps of the Great visionary, Our Founder President Dr. Kurunji Venkatramana Gowda, to contribute for the noble cause of Engineering education we provide Dr. KVG Scholarship and Freeship for students admitting to the first year B.E. courses in our college for the academic year 2023-24. The Freeship will be based on the KCET ranking and Scholarship will be based on Dr. KVG Scholarship Test ranking/ score.</p>
+<table border="2">   
+<tr>
+    <th>Sl. No.</th>
+    <th>Dr. KVG Scholarship Test – 2023 Ranking/ Score	</th>
+        <th>KCET – 2023 Ranking	</th>
+    <th>Tuition Fees Concession/ Scholarship</th>
+    <th>Remarks</th>
+</tr>
+<tr>
+    <td>1</td>	
+    <td>-</td>	
+    <td>1-2000</td>
+    <td>100%</td>	
+    <td>For all 4 years</td>
+</tr>
+<tr>
+    <td>2</td>	
+    <td>1-12</td>	
+    <td>Any	</td>
+        <td>100%</td>	
+    <td>For all 4 years</td>
+</tr>
+<tr>
+    <td>3</td>	
+    <td>13-24</td>	
+    <td>Any</td>
+        <td>	50%</td>	
+    <td>For all 4 years</td>
+</tr>
+<tr>
+    <td>4</td>
+    <td>Above 60% Score in Dr. KVG Scholarship Test-23</td>
+    <td>Any</td>
+        <td>	Rs 10,000</td>
+    <td>For all 4 years</td>
+</tr>
+</table>
+<br>
+<h3>Note:</h3>
+<ul style="text-align: justify;">
+<li>Freeship/ Tuition fee concession is extended only for DIRECT ADMISSION UNDER MANAGEMENT QUOTA.</li>
+<li>FREESHIP will be allotted to 12 students on first-come-first-served basis with two students per branch.</li>
+<li>100% TUITION FEE CONCESSION will be given to first 12 students with the highest scores, on first-come-first-served basis with two students per branch.</li>
+<li>50% TUITION FEE CONCESSION will be given to the next 12 students with the highest scores, on first-come-first-served basis with two students per branch.</li>
+<li>Courses offered by the institution are: (1) Computer Engineering, (2) Computer Science & Engineering, (3) Artificial Intelligence and Machine Learning, (4) Electronics & Communication Engineering, (5) Civil Engineering and (6) Mechanical Engineering.</li>
+<li>To avail the scholarship, please make sure to fill out the required format at the college office before June 30th, 2023.</li>
+<li>The student's performance will be considered for continuation of the same in consecutive years.</li>
+<li>The scholarship cannot be transferred to other individuals.</li>
+<li>For more information, please contact the college. 9845866528 .</li>
+</ul>
+</div>
+{% endblock %}
